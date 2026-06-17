@@ -1,14 +1,6 @@
 // 1. بيانات المشاريع (تأكدي من وضع روابطك)
 const projects = [
   {
-    title: "صالون - الريم بيوتي",
-    desc: "واجهة أمامية احترافية لصالون تجميل مع نظام عرض خدمات متطور.",
-    tools: "HTML , CSS , JS",
-    year: "موقع الكتروني",
-    status: "✅ مكتمل",
-    link: "https://reem-web24.github.io/my-salon-project/",
-  },
-  {
     title: "متجر - سيما",
     desc: "تصميم متجر إلكتروني عصري يركز على تجربة المستخدم وسهولة التصفح.",
     tools: " JS , React / Next.js",
@@ -16,6 +8,15 @@ const projects = [
     status: "✅ مكتمل",
     link: "https://melodious-axolotl-b07106.netlify.app/",
   },
+  {
+    title: "صالون - الريم بيوتي",
+    desc: "واجهة أمامية احترافية لصالون تجميل مع نظام عرض خدمات متطور.",
+    tools: "HTML , CSS , JS",
+    year: "موقع الكتروني",
+    status: "✅ مكتمل",
+    link: "https://reem-web24.github.io/my-salon-project/",
+  },
+
   {
     title: "مشروع مستقبلي (جديد)",
     desc: "منصة ويب متطورة يتم بناؤها حالياً باستخدام أحدث التقنيات.",

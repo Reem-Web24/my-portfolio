@@ -799,3 +799,84 @@ body {
     display: block !important;
   }
 }
+/* تنسيق قسم التقنيات وأدوات العمل (في المنتصف) */
+#tech-stack {
+  background-color: #f4f7fc;
+  padding: 60px 20px;
+  margin-top: 50px;
+  border-top: 1px solid #e1e8f0;
+  border-bottom: 1px solid #e1e8f0;
+  text-align: center; /* جعل كل ما بداخله في المنتصف */
+}
+
+#tech-stack .container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#tech-stack .section-title {
+  color: #1d3072;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center; /* العنوان في المنتصف */
+  font-family: "El Messiri", sans-serif;
+}
+
+/* صندوق عرض التقنيات الفاخر */
+.tech-card-box {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(29, 48, 114, 0.08);
+  border-top: 4px solid #1d3072; /* لمسة جمالية في الأعلى بدلاً من اليمين */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tech-card-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(29, 48, 114, 0.12);
+}
+
+.tech-item {
+  margin-bottom: 18px;
+  font-size: 16px;
+  color: #333333;
+  line-height: 1.8;
+  text-align: center; /* النصوص داخل العناصر في المنتصف */
+}
+
+.tech-item:last-child {
+  margin-bottom: 0;
+}
+
+.tech-item strong {
+  color: #1d3072;
+  font-weight: 600;
+  display: block; /* جعل العنوان الفرعي بسطر مستقل لترتيب أجمل في المنتصف */
+  margin-bottom: 5px;
+}
+
+/* التجاوب مع شاشات الجوال */
+@media (max-width: 768px) {
+  #tech-stack {
+    padding: 40px 15px;
+  }
+
+  #tech-stack .section-title {
+    font-size: 22px;
+  }
+
+  .tech-card-box {
+    padding: 20px;
+  }
+
+  .tech-item {
+    font-size: 14px;
+  }
+}

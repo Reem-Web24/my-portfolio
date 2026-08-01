@@ -1,29 +1,28 @@
 // 1. بيانات المشاريع (تأكدي من وضع روابطك)
 const projects = [
   {
+    title: "منصة شعاع الأمل ",
+    desc: "منصة ويب متكاملة (Full-Stack) لدعم الصحة النفسية، تشمل مذكرات يومية، مقاطع صوتية ومرئية، ونظام تسجيل دخول وقواعد بيانات لإدارة الحسابات والأخصائيين.",
+    tools: " JS, PHP, SQL",
+    year: "مشروع التخرج (Full-Stack)",
+    status: "2025",
+    link: "https://roh.site.je",
+  },
+  {
     title: "متجر - سيما",
-    desc: "تصميم متجر إلكتروني عصري يركز على تجربة المستخدم وسهولة التصفح.",
-    tools: " JS , React / Next.js",
-    year: "متجر الكتروني ",
-    status: "✅ مكتمل",
+    desc: "تصميم وتطوير متجر إلكتروني عصري ومتكامل يركز على تجربة المستخدم وسهولة التصفح. يتضمن المتجر نظاماً آمناً لتسجيل الدخول وإنشاء الحسابات للعملاء،",
+    tools: "JS, React / Next.js",
+    year: "متجر الكتروني",
+    status: "2026",
     link: "https://melodious-axolotl-b07106.netlify.app/",
   },
   {
     title: "صالون - الريم بيوتي",
-    desc: "واجهة أمامية احترافية لصالون تجميل مع نظام عرض خدمات متطور.",
-    tools: "HTML , CSS , JS",
+    desc: "واجهة أمامية احترافية لتطبيق أو موقع صالون تجميل، مصممة بعناية فائقة لتعكس الهوية الأنيقة للصالون. يتضمن المشروع نظاماً متطوراً لعرض الخدمات والأسعار",
+    tools: "HTML, CSS, JS",
     year: "موقع الكتروني",
-    status: "✅ مكتمل",
+    status: "2025",
     link: "https://reem-web24.github.io/my-salon-project/",
-  },
-
-  {
-    title: "مشروع مستقبلي (جديد)",
-    desc: "منصة ويب متطورة يتم بناؤها حالياً باستخدام أحدث التقنيات.",
-    tools: "React / Next.js",
-    year: "موقع الكتروني",
-    status: "⏳ تحت التنفيذ",
-    link: "#",
   },
 ];
 
@@ -76,11 +75,13 @@ function initTypewriter() {
 // 4. تأثير حركة العناصر مع الماوس (Parallax)
 function initHeroParallax() {
   const heroImage = document.querySelector(".modern-image-frame");
-  document.addEventListener("mousemove", (e) => {
-    const x = (window.innerWidth - e.pageX * 2) / 100;
-    const y = (window.innerHeight - e.pageY * 2) / 100;
-    heroImage.style.transform = `translateX(${x}px) translateY(${y}px)`;
-  });
+  if (heroImage) {
+    document.addEventListener("mousemove", (e) => {
+      const x = (window.innerWidth - e.pageX * 2) / 100;
+      const y = (window.innerHeight - e.pageY * 2) / 100;
+      heroImage.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    });
+  }
 }
 
 // 5. مراقب التمرير لإظهار العناصر بنعومة (Intersection Observer)

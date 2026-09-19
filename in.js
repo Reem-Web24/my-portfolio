@@ -1,4 +1,4 @@
-// 1. بيانات المشاريع (تم إضافة مشروعين الباركود الجدد مع مراعاة الخصوصية)
+// 1. بيانات المشاريع (تضمين المشاريع الحقيقية والتدريبية للباركود مع التنبيه الخاص)
 const projects = [
   {
     title: "منصة شعاع الأمل",
@@ -28,26 +28,28 @@ const projects = [
     isPrivate: false,
   },
   {
-    title: "نظام إدارة الحضور والباركود (مشروع خاص)",
-    desc: "ملاحظة: هذا النظام تم تطويره لصالح عميل بشكل خاص. لأسباب تتعلق بالخصوصية وأمان البيانات، تم الاكتفاء بعرض تفاصيل النظام وواجهاته بدلًا من إتاحة الرابط المباشر.",
+    title: "نظام إدارة الحضور والباركود",
+    desc: "نظام متكامل لإدارة الفعاليات والضيوف عبر الـ QR Code.",
     tools: "Node.js, MERN Stack, QR Code",
     year: "مشروع عميل خاص",
     status: "2026",
-    link: "#",
     isPrivate: true,
+    alertText:
+      "تنبيه: هذا المشروع خاص لعميل، لذا لا يمكن وضع رابط المعاينه المباشر، ولكن إليك شرح مبسط لواجهات النظام.",
   },
   {
-    title: "نظام إدارة الفعاليات والباركود (تطبيقي)",
-    desc: "نظام متكامل تم تطويره خلال فترة التدريب لتسهيل تسجيل الحضور وإدارة الضيوف عبر الـ QR Code للجمعيات والفعاليات بكفاءة عالية.",
+    title: "نظام إدارة الفعاليات والباركود (التدريبي)",
+    desc: "تطبيق عملي متكامل لتسجيل وتنظيم حضور الضيوف بتقنية الباركود.",
     tools: "JavaScript, Database, CSS",
     year: "مشروع تدريبي / تطبيقي",
     status: "2025",
-    link: "#",
     isPrivate: true,
+    alertText:
+      "تنبيه: مشروع تطبيقي خاص بفترة التدريب، يوضح كفاءة بناء أنظمة الباركود وإدارة البيانات.",
   },
 ];
 
-// 2. دالة عرض المشاريع مع تأثير الظهور (Staggered Animation)
+// 2. دالة عرض المشاريع مع دعم المشاريع الخاصة والتنبيه الأحمر
 function displayProjects() {
   const container = document.getElementById("my-profileid");
   container.innerHTML = `<h2 class="section-title" style="width:100%">أهم أعمالي</h2>`;
@@ -55,41 +57,50 @@ function displayProjects() {
   projects.forEach((project, index) => {
     const card = document.createElement("div");
     card.className = "Card project-card";
-    card.setAttribute("data-aos", "fade-up");
-    card.style.transitionDelay = `${index * 0.2}s`; // ظهور متتابع
+    card.style.transitionDelay = `${index * 0.2}s`;
 
-    // التحقق إذا كان المشروع خاصاً لعدم وضع رابط مباشر وتغيير شكل الزر أو اخفائه
-    let actionElement = "";
+    let actionHTML = "";
     if (project.isPrivate) {
-      actionElement = `<span style="font-size: 12px; color: var(--accent-color); font-weight: bold; background: rgba(197, 168, 121, 0.1); padding: 5px 10px; border-radius: 6px;">مشروع خاص (محمي الخصوصية)</span>`;
+      actionHTML = `
+        <div style="margin-top: 15px; padding: 10px; background: #fff5f5; border: 1px dashed #e53e3e; border-radius: 8px;">
+          <p style="color: #e53e3e; font-size: 12px; font-weight: bold; margin-bottom: 8px; line-height: 1.5;">
+            <i class="fas fa-exclamation-circle"></i> ${project.alertText}
+          </p>
+          <button onclick="alert('قريباً سيتم إضافة صفحة التفاصيل والصور والفيديوهات الخاصة بهذا النظام!')" style="background: var(--primary-color); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-family: 'El Messiri', sans-serif; font-size: 12px;">
+            عرض تفاصيل النظام والصور <i class="fas fa-images"></i>
+          </button>
+        </div>
+      `;
     } else {
-      actionElement = `
-        <a href="${project.link}" class="project-arrow" target="_blank">
-            <i class="fas fa-arrow-left"></i>
-        </a>`;
+      actionHTML = `
+        <div style="margin-top: 15px; display: flex; justify-content: flex-end;">
+          <a href="${project.link}" class="project-arrow" target="_blank" style="position: relative; opacity: 1; transform: none; left: 0; bottom: 0;">
+              <i class="fas fa-arrow-left"></i>
+          </a>
+        </div>
+      `;
     }
 
     card.innerHTML = `
-            <div class="card-content">
-                <span class="project-year">${project.year}</span>
-                <h3>${project.title}</h3>
-                <p>${project.desc}</p>
-                <div class="project-info">
-                    <span>${project.tools}</span>
-                    <small>${project.status}</small>
-                </div>
-                <div style="margin-top: 15px; display: flex; align-items: center; justify-content: space-between;">
-                    ${actionElement}
-                </div>
+        <div class="card-content">
+            <span class="project-year">${project.year}</span>
+            <h3>${project.title}</h3>
+            <p>${project.desc}</p>
+            <div class="project-info">
+                <span>${project.tools}</span>
+                <small>${project.status}</small>
             </div>
-        `;
+            ${actionHTML}
+        </div>
+    `;
     container.appendChild(card);
   });
 }
 
-// 3. تأثير الكتابة الآلية (Typewriter) في قسم الـ Hero
+// 3. تأثير الكتابة الآلية (Typewriter)
 function initTypewriter() {
   const textElement = document.querySelector(".hero-desc");
+  if (!textElement) return;
   const text = textElement.innerText;
   textElement.innerText = "";
   let i = 0;
@@ -104,7 +115,7 @@ function initTypewriter() {
   type();
 }
 
-// 4. تأثير حركة العناصر مع الماوس (Parallax)
+// 4. تأثير حركة العناصر مع الماوس
 function initHeroParallax() {
   const heroImage = document.querySelector(".modern-image-frame");
   if (heroImage) {
@@ -116,7 +127,7 @@ function initHeroParallax() {
   }
 }
 
-// 5. مراقب التمرير لإظهار العناصر بنعومة (Intersection Observer)
+// 5. مراقب التمرير لإظهار العناصر
 function initScrollReveal() {
   const options = { threshold: 0.15 };
   const observer = new IntersectionObserver((entries) => {
@@ -140,7 +151,6 @@ function initScrollReveal() {
     });
 }
 
-// 6. تشغيل كل الوظائف عند التحميل
 document.addEventListener("DOMContentLoaded", () => {
   displayProjects();
   initTypewriter();

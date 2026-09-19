@@ -880,3 +880,45 @@ body {
     font-size: 14px;
   }
 }
+/* =========================================
+   تعديلات وتحسينات العرض والتجاوب للجوال
+   ========================================= */
+
+/* إصلاح مشكلة محاذاة النصوص في قسم من هي ريم للجوال */
+@media (max-width: 768px) {
+  .about-text {
+    text-align: right !important;
+  }
+
+  .about-text p {
+    text-align: right !important;
+    direction: rtl;
+  }
+
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-right;
+    text-align: right !important;
+    direction: rtl;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  .check-list li {
+    display: flex;
+    flex-direction: row-reverse; /* الأيقونة يمين والنص يسارها بشكل صحيح */
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    text-align: right !important;
+    direction: rtl;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+
+  .btn-link {
+    justify-content: center;
+    width: 100%;
+  }
+}

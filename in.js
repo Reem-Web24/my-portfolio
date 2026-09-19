@@ -1,12 +1,13 @@
-// 1. بيانات المشاريع (تأكدي من وضع روابطك)
+// 1. بيانات المشاريع (تم إضافة مشروعين الباركود الجدد مع مراعاة الخصوصية)
 const projects = [
   {
-    title: "منصة شعاع الأمل ",
+    title: "منصة شعاع الأمل",
     desc: "منصة ويب متكاملة (Full-Stack) لدعم الصحة النفسية، تشمل مذكرات يومية، مقاطع صوتية ومرئية، ونظام تسجيل دخول وقواعد بيانات لإدارة الحسابات والأخصائيين.",
-    tools: " JS, PHP, SQL",
+    tools: "JS, PHP, SQL",
     year: "مشروع التخرج (Full-Stack)",
     status: "2025",
     link: "https://roh.site.je",
+    isPrivate: false,
   },
   {
     title: "متجر - سيما",
@@ -15,6 +16,7 @@ const projects = [
     year: "متجر الكتروني",
     status: "2026",
     link: "https://melodious-axolotl-b07106.netlify.app/",
+    isPrivate: false,
   },
   {
     title: "صالون - الريم بيوتي",
@@ -23,6 +25,25 @@ const projects = [
     year: "موقع الكتروني",
     status: "2025",
     link: "https://reem-web24.github.io/my-salon-project/",
+    isPrivate: false,
+  },
+  {
+    title: "نظام إدارة الحضور والباركود (مشروع خاص)",
+    desc: "ملاحظة: هذا النظام تم تطويره لصالح عميل بشكل خاص. لأسباب تتعلق بالخصوصية وأمان البيانات، تم الاكتفاء بعرض تفاصيل النظام وواجهاته بدلًا من إتاحة الرابط المباشر.",
+    tools: "Node.js, MERN Stack, QR Code",
+    year: "مشروع عميل خاص",
+    status: "2026",
+    link: "#",
+    isPrivate: true,
+  },
+  {
+    title: "نظام إدارة الفعاليات والباركود (تطبيقي)",
+    desc: "نظام متكامل تم تطويره خلال فترة التدريب لتسهيل تسجيل الحضور وإدارة الضيوف عبر الـ QR Code للجمعيات والفعاليات بكفاءة عالية.",
+    tools: "JavaScript, Database, CSS",
+    year: "مشروع تدريبي / تطبيقي",
+    status: "2025",
+    link: "#",
+    isPrivate: true,
   },
 ];
 
@@ -37,6 +58,17 @@ function displayProjects() {
     card.setAttribute("data-aos", "fade-up");
     card.style.transitionDelay = `${index * 0.2}s`; // ظهور متتابع
 
+    // التحقق إذا كان المشروع خاصاً لعدم وضع رابط مباشر وتغيير شكل الزر أو اخفائه
+    let actionElement = "";
+    if (project.isPrivate) {
+      actionElement = `<span style="font-size: 12px; color: var(--accent-color); font-weight: bold; background: rgba(197, 168, 121, 0.1); padding: 5px 10px; border-radius: 6px;">مشروع خاص (محمي الخصوصية)</span>`;
+    } else {
+      actionElement = `
+        <a href="${project.link}" class="project-arrow" target="_blank">
+            <i class="fas fa-arrow-left"></i>
+        </a>`;
+    }
+
     card.innerHTML = `
             <div class="card-content">
                 <span class="project-year">${project.year}</span>
@@ -46,9 +78,9 @@ function displayProjects() {
                     <span>${project.tools}</span>
                     <small>${project.status}</small>
                 </div>
-              <a href="${project.link}" class="project-arrow" target="_blank">
-            <i class="fas fa-arrow-left"></i>
-        </a>
+                <div style="margin-top: 15px; display: flex; align-items: center; justify-content: space-between;">
+                    ${actionElement}
+                </div>
             </div>
         `;
     container.appendChild(card);
@@ -91,7 +123,6 @@ function initScrollReveal() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
-        // إذا كانت بطاقة مشروع، نعطيها تأثير ميلان خفيف
         if (entry.target.classList.contains("project-card")) {
           entry.target.style.transform = "translateY(0) scale(1)";
         }
@@ -116,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroParallax();
   initScrollReveal();
 
-  // كلاس بسيط لإدارة الظهور
   const style = document.createElement("style");
   style.innerHTML = `.is-visible { opacity: 1 !important; transform: translateY(0) !important; }`;
   document.head.appendChild(style);

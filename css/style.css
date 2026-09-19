@@ -922,3 +922,44 @@ body {
     width: 100%;
   }
 }
+/* إصلاح نهائي لمشاعات واتجاهات قسم من هي ريم في الجوال */
+@media (max-width: 768px) {
+  .about-text {
+    text-align: right !important;
+    direction: rtl !important;
+  }
+
+  .about-text p {
+    text-align: right !important;
+    direction: rtl !important;
+  }
+
+  .check-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 20px 0 !important;
+    text-align: right !important;
+    direction: rtl !important;
+  }
+
+  .check-list li {
+    display: flex !important;
+    flex-direction: row !important; /* الأيقونة يمين والنص يسارها بشكل صحيح تماماً */
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    text-align: right !important;
+    direction: rtl !important;
+    margin-bottom: 15px !important;
+    font-size: 16px !important;
+  }
+
+  .check-list li i {
+    order: 1 !important;
+  }
+
+  .check-list li span,
+  .check-list li {
+    order: 2 !important;
+  }
+}

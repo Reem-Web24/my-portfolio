@@ -1,4 +1,4 @@
-// 1. بيانات المشاريع (تضمين المشاريع الحقيقية والتدريبية للباركود مع التنبيه الخاص)
+// 1. بيانات المشاريع وتوجيه المشاريع الخاصة لصفحة تفاصيل
 const projects = [
   {
     title: "منصة شعاع الأمل",
@@ -34,8 +34,9 @@ const projects = [
     year: "مشروع عميل خاص",
     status: "2026",
     isPrivate: true,
+    link: "project-details.html?project=barcode-client",
     alertText:
-      "تنبيه: هذا المشروع خاص لعميل، لذا لا يمكن وضع رابط المعاينه المباشر، ولكن إليك شرح مبسط لواجهات النظام.",
+      "تنبيه: هذا المشروع خاص لعميل، لذا لا يمكن وضع رابط المعاينة المباشر، ولكن يمكنك الاطلاع على شرح النظام والصور في الداخل.",
   },
   {
     title: "نظام إدارة الفعاليات والباركود (التدريبي)",
@@ -44,12 +45,13 @@ const projects = [
     year: "مشروع تدريبي / تطبيقي",
     status: "2025",
     isPrivate: true,
+    link: "project-details.html?project=barcode-training",
     alertText:
-      "تنبيه: مشروع تطبيقي خاص بفترة التدريب، يوضح كفاءة بناء أنظمة الباركود وإدارة البيانات.",
+      "تنبيه: مشروع تطبيقي خاص بفترة التدريب، يوضح كفاءة بناء أنظمة الباركود وإدارة البيانات مع شرح تفصيلي.",
   },
 ];
 
-// 2. دالة عرض المشاريع مع دعم المشاريع الخاصة والتنبيه الأحمر
+// 2. دالة عرض المشاريع مع زر يفتح صفحة التفاصيل
 function displayProjects() {
   const container = document.getElementById("my-profileid");
   container.innerHTML = `<h2 class="section-title" style="width:100%">أهم أعمالي</h2>`;
@@ -62,13 +64,13 @@ function displayProjects() {
     let actionHTML = "";
     if (project.isPrivate) {
       actionHTML = `
-        <div style="margin-top: 15px; padding: 10px; background: #fff5f5; border: 1px dashed #e53e3e; border-radius: 8px;">
-          <p style="color: #e53e3e; font-size: 12px; font-weight: bold; margin-bottom: 8px; line-height: 1.5;">
-            <i class="fas fa-exclamation-circle"></i> ${project.alertText}
+        <div style="margin-top: 15px;">
+          <p style="color: #e53e3e; font-size: 11px; font-weight: bold; margin-bottom: 8px; line-height: 1.4; background: #fff5f5; padding: 6px; border-radius: 4px; border: 1px dashed #e53e3e;">
+            <i class="fas fa-exclamation-circle"></i> مشروع خاص (محمي الخصوصية)
           </p>
-          <button onclick="alert('قريباً سيتم إضافة صفحة التفاصيل والصور والفيديوهات الخاصة بهذا النظام!')" style="background: var(--primary-color); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-family: 'El Messiri', sans-serif; font-size: 12px;">
-            عرض تفاصيل النظام والصور <i class="fas fa-images"></i>
-          </button>
+          <a href="${project.link}" style="display: inline-block; background: var(--primary-color); color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-family: 'El Messiri', sans-serif; transition: 0.3s;">
+            عرض شرح النظام والصور <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+          </a>
         </div>
       `;
     } else {
@@ -97,14 +99,13 @@ function displayProjects() {
   });
 }
 
-// 3. تأثير الكتابة الآلية (Typewriter)
+// الدوال المساعدة الأخرى (نفس السابقة)
 function initTypewriter() {
   const textElement = document.querySelector(".hero-desc");
   if (!textElement) return;
   const text = textElement.innerText;
   textElement.innerText = "";
   let i = 0;
-
   function type() {
     if (i < text.length) {
       textElement.innerHTML += text.charAt(i);
@@ -115,7 +116,6 @@ function initTypewriter() {
   type();
 }
 
-// 4. تأثير حركة العناصر مع الماوس
 function initHeroParallax() {
   const heroImage = document.querySelector(".modern-image-frame");
   if (heroImage) {
@@ -127,7 +127,6 @@ function initHeroParallax() {
   }
 }
 
-// 5. مراقب التمرير لإظهار العناصر
 function initScrollReveal() {
   const options = { threshold: 0.15 };
   const observer = new IntersectionObserver((entries) => {

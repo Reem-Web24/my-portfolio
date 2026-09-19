@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تفاصيل المشروع - ريم حسن</title>
+    <title>نظام إدارة الحضور والباركود - ريم حسن</title>
     <link rel="stylesheet" href="css/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600;700&display=swap"
@@ -16,18 +16,34 @@
     <style>
       body {
         font-family: "El Messiri", sans-serif;
-        background-color: #fdfdfd;
+        background-color: #f4f7fc;
         color: #1a1a1a;
         line-height: 1.8;
       }
+
       .details-container {
         max-width: 900px;
-        margin: 50px auto;
+        margin: 40px auto;
         padding: 40px;
         background: #fff;
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: var(--primary-color);
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .back-btn:hover {
+        color: var(--accent-color);
+      }
+
       .alert-box {
         background-color: #fff5f5;
         border: 1px solid #e53e3e;
@@ -43,21 +59,56 @@
       }
       .alert-box i {
         font-size: 20px;
+        flex-shrink: 0;
       }
-      .back-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 20px;
-        text-decoration: none;
-        color: var(--primary-color);
+
+      .project-badge {
+        display: inline-block;
+        font-size: 13px;
+        color: var(--accent-color);
         font-weight: bold;
+        margin-bottom: 6px;
       }
+
+      .project-title {
+        color: #1d3072;
+        font-size: 32px;
+        line-height: 1.4;
+        margin-bottom: 12px;
+      }
+
+      .project-desc {
+        color: #666;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+      .tools-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .tools-list span {
+        font-size: 13px;
+        padding: 4px 14px;
+        border: 1px solid #e1e8f0;
+        border-radius: 50px;
+        color: #1d3072;
+        background: #fff;
+      }
+
+      .section-heading {
+        color: #1d3072;
+        font-size: 22px;
+        margin: 35px 0 15px;
+      }
+
+      /* شبكة الصور: 4 صور (2 × 2) */
       .project-images-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-        margin-top: 30px;
       }
       .project-img-card {
         background: #f9f9f9;
@@ -69,68 +120,179 @@
       }
       .project-img-card img {
         width: 100%;
+        height: 580px;
+        object-fit: cover;
         border-radius: 8px;
+        display: block;
+        cursor: zoom-in;
         transition: transform 0.3s ease;
       }
       .project-img-card img:hover {
         transform: scale(1.03);
+      }
+      .project-img-card p {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #444;
+      }
+
+      /* الفيديو */
+      .video-wrapper {
+        background: #000;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .video-wrapper video,
+      .video-wrapper iframe {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border: 0;
+      }
+
+      /* تكبير الصورة عند الضغط */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        z-index: 10000;
+        cursor: zoom-out;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 700px) {
+        .details-container {
+          margin: 20px 15px;
+          padding: 22px;
+        }
+        .project-title {
+          font-size: 24px;
+        }
+        .project-images-grid {
+          grid-template-columns: 1fr;
+        }
+        .project-img-card img {
+          height: auto;
+          max-height: 260px;
+        }
       }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="details-container">
-        <a href="index.html" class="back-btn"
-          ><i class="fas fa-arrow-right"></i> العودة للرئيسية</a
-        >
+        <a href="index.html" class="back-btn">
+          <i class="fas fa-arrow-right"></i> العودة للرئيسية
+        </a>
 
-        <!-- التنبيه الأحمر المطلوب -->
         <div class="alert-box">
           <i class="fas fa-exclamation-triangle"></i>
-          <span
-            >تنبيه: هذا المشروع خاص لعميل، لذا لا يمكن وضع رابط المعاينة
-            المباشر، ولكن إليك شرح تفصيلي لواجهات النظام والصور.</span
-          >
+          <span>
+            تنبيه: هذا المشروع خاص لعميل، لذا لا يمكن وضع رابط المعاينة المباشر،
+            ولكن إليك شرح تفصيلي لواجهات النظام والصور.
+          </span>
         </div>
 
-        <h1
-          id="p-title"
-          style="color: #1d3072; margin-bottom: 15px; font-size: 32px"
-        >
-          تفاصيل نظام إدارة الحضور والباركود
-        </h1>
-        <p
-          id="p-desc"
-          style="color: #666; font-size: 16px; margin-bottom: 25px"
-        >
-          هذا النظام تم بناؤه بعناية لتسهيل عمليات تسجيل الحضور وإصدار وقراءة
-          رموز الستيكر أو الباركود (QR Code) للفعاليات والضيوف بدقة عالية وسرعة
-          فائقة.
+        <span class="project-badge">مشروع عميل خاص · 2026</span>
+        <h1 class="project-title">نظام إدارة الحضور والباركود</h1>
+        <p class="project-desc">
+          نظام برمجي متكامل ومخصص لتنظيم وإدارة المناسبات، الحفلات، والأعراس
+          بشكل رقمي بالكامل. يهدف النظام إلى تسهيل رحلة المنظمين منذ لحظة إنشاء
+          المناسبة، مروراً بإدارة المدعوين وتصميم بطاقات الدعوة وإرسالها، وصولاً
+          إلى بوابات الحضور الرقمية في يوم الحفل عبر مسح الباركود.
         </p>
 
-        <h3 style="color: #1d3072; margin-top: 30px; margin-bottom: 15px">
-          معرض الصور وواجهات النظام:
-        </h3>
-        <p style="font-size: 14px; color: #888">
-          (يمكنك لاحقاً استبدال الروابط الوهمية بأسماء الصور الحقيقية الخاصة بك
-          في مجلد images)
-        </p>
+        <div class="tools-list">
+          <span>Node.js</span>
+          <span>MERN Stack</span>
+          <span>QR Code</span>
+        </div>
+
+        <!-- ========== الصور (4 صور) ========== -->
+        <h3 class="section-heading">معرض الصور وواجهات النظام</h3>
 
         <div class="project-images-grid">
+          <!-- غيّري اسم الصورة واسم الوصف لكل بطاقة -->
           <div class="project-img-card">
-            <img src="images/hero.jpg" alt="واجهة النظام الرئيسية" />
-            <p style="margin-top: 10px; font-size: 14px; color: #444">
-              لوحة التحكم والتحكم بالضيوف
+            <img src="images/card.jpg" alt="الصورة الأولى" />
+            <p>
+              تخصيص كرت الدعوة الذي يظهر للمدعو عند تأكيد حضوره بالإضافة إلى
+              تحديد رسالة الاعتذار وإعدادات موقع القاعة
             </p>
           </div>
           <div class="project-img-card">
-            <img src="images/the2.jpg" alt="صفحة قراءة الباركود" />
-            <p style="margin-top: 10px; font-size: 14px; color: #444">
-              نظام مسح الـ QR Code وتسجيل الحضور
+            <img src="images/wed.jpg" alt="الصورة الثانية" />
+            <p>
+              صفحة "إدارة المناسبات" تتيح للمستخدم استعراض المناسبات القادمة
+              وإدارتها أو إضافة مناسبة جديدة بسهولة
             </p>
           </div>
+          <div class="project-img-card">
+            <img src="images/page.jpg" alt="الصورة الثالثة" />
+            <p>
+              هذه لوحة تحكم مخصصة لكل مناسبة تتيح متابعة تفاصيلها، إدارة قائمة
+              المدعوين، إرسال الدعوات وتخصيص بطاقة الدعوة وغيرها .
+            </p>
+          </div>
+          <div class="project-img-card">
+            <img src="images/qr.png" alt="الصورة الرابعة" />
+            <p>
+              "مسح الباركود - بوابة الحضور" المخصصة لوقت المناسبة، والتي تتيح
+              للمنظمين مسح (QR Code) الخاصة بالمدعوين لتسجيل حضورهم رسمياً وتتبع
+              عدد الحاضرين في القاعة .
+            </p>
+          </div>
+        </div>
+
+        <!-- ========== الفيديو ========== -->
+        <h3 class="section-heading">فيديو توضيحي للنظام</h3>
+
+        <div class="video-wrapper">
+          <!-- الخيار 1: فيديو من مجلد videos (مفعّل) -->
+          <video controls preload="metadata">
+            <source src="images/vid.MOV" type="video/mp4" />
+            متصفحك لا يدعم تشغيل الفيديو.
+          </video>
+
+          <!-- الخيار 2: فيديو يوتيوب (احذفي وسم video فوق وفعّلي هذا)
+          <iframe
+            src="https://www.youtube.com/embed/VIDEO_ID"
+            allowfullscreen
+          ></iframe>
+          -->
         </div>
       </div>
     </div>
+
+    <!-- تكبير الصورة عند الضغط عليها -->
+    <div class="lightbox" id="lightbox"><img src="" alt="" /></div>
+
+    <script>
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = lightbox.querySelector("img");
+
+      document.querySelectorAll(".project-img-card img").forEach((img) => {
+        img.addEventListener("click", () => {
+          lightboxImg.src = img.src;
+          lightbox.classList.add("open");
+        });
+      });
+
+      lightbox.addEventListener("click", () => {
+        lightbox.classList.remove("open");
+      });
+    </script>
   </body>
 </html>

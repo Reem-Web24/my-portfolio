@@ -6,6 +6,7 @@
   --accent-color: #c5a879; /* اللون الذهبي/البيج للهوية */
   --bg-light: #fdfdfd; /* خلفية الصفحة البيضاء المريحة */
   --bg-blue-soft: #d6e2ef; /* لونك الأزرق السماوي الهادئ */
+  --soft-blue: #d6e2ef;
   --text-muted: #666; /* للنصوص الفرعية */
   --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -103,16 +104,6 @@ body {
   flex: 1;
 }
 
-/* .badge {
-    background: var(--accent-color);
-    color: white;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 14px;
-    display: inline-block;
-    margin-bottom: 20px;
-} */
-
 .hero-title {
   font-size: 58px;
   line-height: 1.2;
@@ -167,7 +158,7 @@ body {
   color: white;
 }
 
-/* تنسيق الصورة الجديد والأنيق */
+/* تنسيق الصورة */
 .hero-image {
   flex: 1;
   position: relative;
@@ -244,7 +235,6 @@ body {
 
 .about-text {
   flex: 1.2;
-  justify-content: center;
   text-align: right;
 }
 
@@ -256,44 +246,33 @@ body {
 .check-list {
   list-style: none;
   margin: 30px 0;
-  text-align: right; /* لجعل النص يمين */
+  padding: 0;
+  text-align: right;
+  direction: rtl;
 }
-/* ضبط المحاذاة لليمين في الجوال لكل أقسام النصوص */
-@media (max-width: 768px) {
-  .about-text,
-  .check-list,
-  .check-list li {
-    text-align: right !important;
-    justify-content: flex-start !important;
-    direction: ltr !important;
-  }
 
-  /* تأكدي أن الأيقونة تظهر على اليمين والنص على يسارها */
-  .check-list li {
-    flex-direction: row-reverse; /* يقلب اتجاه الأيقونة والنص */
-    justify-content: flex-end; /* يثبتهم جهة اليمين */
-    gap: 10px;
-  }
-}
 .check-list li {
   margin-bottom: 15px;
   display: flex;
-  align-items: center;
-  justify-content: flex-start; /* لضمان البدء من اليمين */
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 12px;
   font-size: 18px;
-  direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+  direction: rtl;
+  text-align: right;
 }
 
 .check-list i {
   color: var(--accent-color);
+  flex-shrink: 0;
+  margin-top: 6px; /* تحاذي الأيقونة مع أول سطر من النص */
 }
 
-/* ستايل رابط القيت هب في قسم نبذة عني */
+/* رابط GitHub في قسم نبذة عني */
 .btn-link {
   display: inline-flex;
   align-items: center;
-  gap: 10px; /* مسافة بين النص وأيقونة القيت هب */
+  gap: 10px;
   color: var(--primary-color);
   text-decoration: none;
   font-weight: 700;
@@ -304,7 +283,6 @@ body {
   justify-content: center;
 }
 
-/* حركة الخط اللي يظهر تحت الرابط عند مرور الماوس */
 .btn-link::after {
   content: "";
   position: absolute;
@@ -318,18 +296,17 @@ body {
 
 .btn-link:hover {
   color: var(--accent-color);
-  transform: translateX(
-    -5px
-  ); /* يتحرك قليلاً لليمين/اليسار ليعطي إحساساً بالتفاعل */
+  transform: translateX(-5px);
 }
 
 .btn-link:hover::after {
-  width: 100%; /* الخط يمتد تحت النص كامل عند الـ Hover */
+  width: 100%;
 }
 
 .btn-link i {
-  font-size: 22px; /* تكبير أيقونة القيت هب قليلاً */
+  font-size: 22px;
 }
+
 /* =========================================
    5. قسم المهارات (Skills)
    ========================================= */
@@ -372,22 +349,29 @@ body {
 }
 
 /* =========================================
-   6. قسم المشاريع (Projects)
+   6. قسم المشاريع (Projects) - كل البوكسات بنفس الحجم
    ========================================= */
 .projects-section {
-  padding: 100px 0;
+  padding: 100px 20px;
   background: var(--bg-blue-soft);
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 350px));
   justify-content: center;
+  align-items: stretch; /* كل بطاقات الصف الواحد بنفس الارتفاع */
   gap: 30px;
+}
+
+/* عنوان "أهم أعمالي" ياخذ الصف كامل */
+.projects-section .section-title {
+  grid-column: 1 / -1;
+  margin-bottom: 30px;
 }
 
 .Card {
   background: white;
   padding: 30px;
   border-radius: 20px;
-  width: 350px;
+  width: 100%; /* يملأ عرض العمود، فكل البطاقات نفس العرض */
   transition: var(--transition);
 }
 
@@ -395,52 +379,194 @@ body {
   transform: scale(1.03);
 }
 
-/* =========================================
-   7. الفوتر (Footer)
-   ========================================= */
-.footer-social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  margin: 40px 0;
+/* تنسيق بطاقة المشروع (مصغّرة بالطول) */
+.Card {
+  padding: 22px 24px;
 }
 
-.social-item {
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #eee;
+  background: #fff;
   display: flex;
-  flex-direction: column; /* الأيقونة فوق النص */
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.project-card .card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-card h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.project-card .card-content p {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.project-year {
+  font-size: 12px;
+  color: var(--accent-color);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* الأدوات: بدون خلفية زرقاء */
+.project-info {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  color: #ffffff;
-  text-decoration: none;
-  transition: all 0.3s ease;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 10px;
 }
 
-/* تنسيق الأيقونة نفسها */
-.social-item i {
-  font-size: 24px;
-  color: #c5a879; /* لون ذهبي هادئ للأيقونات */
-  transition: transform 0.3s ease;
-}
-
-/* تنسيق النص تحت الأيقونة */
-.social-item span {
+.project-info span {
   font-size: 13px;
-  letter-spacing: 1px;
-  opacity: 0.7;
-  text-transform: uppercase;
+  background: none !important;
+  padding: 0;
+  color: var(--primary-color);
 }
 
-/* تأثير عند التمرير بالماوس */
-.social-item:hover i {
-  transform: translateY(-5px); /* الأيقونة ترتفع قليلاً */
-  color: #ffffff; /* يتغير لونها للأبيض */
+/* السهم / الزر: مخفي، ويظهر عند الضغط على البوكس */
+.card-action {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.3s ease,
+    margin-top 0.4s ease;
 }
 
-.social-item:hover span {
+.project-card.active .card-action {
+  max-height: 60px;
   opacity: 1;
+  margin-top: 12px;
 }
+
+.project-arrow {
+  width: 40px;
+  height: 40px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.project-arrow:hover {
+  background: var(--accent-color);
+  transform: scale(1.1);
+}
+
+.project-arrow i {
+  font-size: 18px;
+}
+
+.details-btn {
+  display: inline-block;
+  background: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.details-btn:hover {
+  background: var(--accent-color);
+}
+
+.details-btn i {
+  margin-right: 5px;
+}
+
+/* =========================================
+   7. قسم التقنيات وأدوات العمل
+   ========================================= */
+#tech-stack {
+  background-color: #f4f7fc;
+  padding: 60px 20px;
+  margin-top: 50px;
+  border-top: 1px solid #e1e8f0;
+  border-bottom: 1px solid #e1e8f0;
+  text-align: center;
+}
+
+#tech-stack .container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#tech-stack .section-title {
+  color: #1d3072;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+  font-family: "El Messiri", sans-serif;
+}
+
+.tech-card-box {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(29, 48, 114, 0.08);
+  border-top: 4px solid #1d3072;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tech-card-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(29, 48, 114, 0.12);
+}
+
+.tech-item {
+  margin-bottom: 18px;
+  font-size: 16px;
+  color: #333333;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.tech-item:last-child {
+  margin-bottom: 0;
+}
+
+.tech-item strong {
+  color: #1d3072;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* =========================================
+   8. الفوتر (Footer)
+   ========================================= */
 .modern-footer {
-  background-color: #1b222e; /* اللون الزيتوني الفاخر المستوحى من الصورة */
+  background-color: #1b222e;
   color: #ffffff;
   padding: 80px 0 40px 0;
   font-family: "El Messiri", sans-serif;
@@ -462,7 +588,7 @@ body {
 }
 
 .footer-logo span {
-  color: #c5a879; /* لمسة ذهبية بسيطة */
+  color: #c5a879;
 }
 
 .footer-tagline {
@@ -470,6 +596,45 @@ body {
   color: rgba(255, 255, 255, 0.6);
   margin-bottom: 50px;
   font-style: italic;
+}
+
+.footer-social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin: 40px 0;
+}
+
+.social-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-item i {
+  font-size: 24px;
+  color: #c5a879;
+  transition: transform 0.3s ease;
+}
+
+.social-item span {
+  font-size: 13px;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.social-item:hover i {
+  transform: translateY(-5px);
+  color: #ffffff;
+}
+
+.social-item:hover span {
+  opacity: 1;
 }
 
 .footer-links {
@@ -492,7 +657,6 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* حركة الخط النحيف تحت الروابط */
 .f-link::after {
   content: "";
   position: absolute;
@@ -524,154 +688,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* للتجاوب مع الجوال */
-@media (max-width: 600px) {
-  .footer-links {
-    gap: 20px;
-  }
-  .footer-logo {
-    font-size: 24px;
-  }
-}
-
-/* =========================================
-   8. التجاوب مع الجوال (Responsive)
-   ========================================= */
-@media (max-width: 992px) {
-  .hero-wrapper {
-    flex-direction: column-reverse;
-  }
-  .about-text {
-    text-align: center !important;
-  }
-
-  .about-text p {
-    text-align: center;
-  }
-
-  .check-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .check-list li {
-    justify-content: center;
-  }
-
-  .btn-link {
-    justify-content: center;
-    width: 100%;
-  }
-  .hero-wrapper,
-  .grid-2 {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-title {
-    font-size: 40px;
-  }
-  .hero-desc {
-    margin: 0 auto 30px;
-  }
-  .hero-btns {
-    justify-content: center;
-  }
-  .modern-image-frame {
-    margin-top: 50px;
-  }
-  .about-text .section-title-alt {
-    text-align: center;
-  }
-  .check-list {
-    display: inline-block;
-    text-align: right;
-  }
-}
-
-/* حركات الظهور ناعمة */
-.animated-fadeInUp {
-  animation: fadeInUp 1s ease forwards;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* تنسيق بطاقة المشروع المطور */
-.project-card {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #eee;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.project-year {
-  font-size: 12px;
-  color: var(--accent-color);
-  font-weight: bold;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.project-info {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #f0f0f0;
-  padding-top: 15px;
-}
-
-.project-info span {
-  font-size: 13px !important;
-  background: var(--soft-blue) !important;
-}
-
-/* السهم الذي ينقل للموقع */
-.project-arrow {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  width: 40px;
-  height: 40px;
-  background: var(--primary-color);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: var(--transition);
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-.project-card:hover .project-arrow {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.project-arrow:hover {
-  background: var(--accent-color);
-  transform: scale(1.1) !important;
-}
-
-/* حركة السهم لليسار (بما أن الموقع عربي) */
-.project-arrow i {
-  font-size: 18px;
-}
+/* زر الواتساب العائم */
 .floating-whatsapp {
   position: fixed;
   bottom: 25px;
@@ -694,9 +711,33 @@ body {
 .floating-whatsapp:hover {
   transform: scale(1.1);
 }
+
+/* حركات الظهور */
+.animated-fadeInUp {
+  animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   9. التجاوب مع الشاشات (Responsive)
+   ========================================= */
+
+/* شاشات التابلت والجوال */
 @media (max-width: 992px) {
-  .hero-wrapper {
+  .hero-wrapper,
+  .grid-2 {
     flex-direction: column;
+    text-align: center;
   }
 
   .hero-image {
@@ -708,161 +749,73 @@ body {
     text-align: center;
   }
 
+  .hero-title {
+    font-size: 40px;
+  }
+
   .hero-desc {
     margin: 0 auto 30px;
   }
-}
-@media (max-width: 600px) {
-  nav {
-    display: flex;
+
+  .hero-btns {
+    justify-content: center;
   }
 
-  /* إخفاء كل العناصر */
-  .nav-links li {
-    display: none !important;
+  .modern-image-frame {
+    margin-top: 50px;
   }
 
-  /* إظهار زر ابدأ مشروعك فقط */
-  .nav-links li:last-child {
+  /* قسم من هي ريم: محاذاة يمين + علامة الصح يمين */
+  .about-text,
+  .about-text p,
+  .about-text .section-title-alt {
+    text-align: right !important;
+    direction: rtl !important;
+  }
+
+  .about-text .check-list {
     display: block !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 20px 0 !important;
+    text-align: right !important;
+    direction: rtl !important;
   }
 
-  .main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    padding: 15px 20px;
+  .about-text .check-list li {
+    display: flex !important;
+    flex-direction: row !important; /* في RTL أول عنصر (الأيقونة) يكون يمين */
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    text-align: right !important;
+    direction: rtl !important;
+    margin-bottom: 15px !important;
+    font-size: 16px !important;
   }
 
-  .nav-links {
-    margin: 0;
-    width: auto;
+  .about-text .check-list li i {
+    flex-shrink: 0;
+    margin-top: 6px;
   }
 
-  .logo {
-    font-size: 24px;
+  .about-text .btn-link {
+    justify-content: center;
+    width: 100%;
   }
 }
-/* إخفاء روابط التنقل في الجوال (أقل من 600 بكسل) */
-@media (max-width: 600px) {
-  .nav-links li:not(:last-child) {
-    display: none !important;
-  }
 
-  /* التأكد من بقاء الزر (آخر عنصر) ظاهراً */
-  .nav-links li:last-child {
-    display: block !important;
-  }
-}
-
-@media (max-width: 600px) {
-  nav {
-    display: flex;
-  }
-
-  /* إخفاء كل العناصر */
-  .nav-links li {
-    display: none !important;
-  }
-
-  /* إظهار زر ابدأ مشروعك فقط */
-  .nav-links li:last-child {
-    display: block !important;
-  }
-
-  .main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    padding: 15px 20px;
-  }
-
-  .nav-links {
-    margin: 0;
-    width: auto;
-  }
-
-  .logo {
-    font-size: 24px;
-  }
-}
-/* إخفاء روابط التنقل في الجوال (أقل من 600 بكسل) */
+/* إخفاء روابط التنقل وإبقاء زر "ابدأ مشروعك" فقط */
 @media (max-width: 770px) {
   .nav-links li:not(:last-child) {
     display: none !important;
   }
 
-  /* التأكد من بقاء الزر (آخر عنصر) ظاهراً */
   .nav-links li:last-child {
     display: block !important;
   }
 }
-/* تنسيق قسم التقنيات وأدوات العمل (في المنتصف) */
-#tech-stack {
-  background-color: #f4f7fc;
-  padding: 60px 20px;
-  margin-top: 50px;
-  border-top: 1px solid #e1e8f0;
-  border-bottom: 1px solid #e1e8f0;
-  text-align: center; /* جعل كل ما بداخله في المنتصف */
-}
 
-#tech-stack .container {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-#tech-stack .section-title {
-  color: #1d3072;
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  text-align: center; /* العنوان في المنتصف */
-  font-family: "El Messiri", sans-serif;
-}
-
-/* صندوق عرض التقنيات الفاخر */
-.tech-card-box {
-  background: #ffffff;
-  padding: 35px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(29, 48, 114, 0.08);
-  border-top: 4px solid #1d3072; /* لمسة جمالية في الأعلى بدلاً من اليمين */
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  display: inline-block;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.tech-card-box:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(29, 48, 114, 0.12);
-}
-
-.tech-item {
-  margin-bottom: 18px;
-  font-size: 16px;
-  color: #333333;
-  line-height: 1.8;
-  text-align: center; /* النصوص داخل العناصر في المنتصف */
-}
-
-.tech-item:last-child {
-  margin-bottom: 0;
-}
-
-.tech-item strong {
-  color: #1d3072;
-  font-weight: 600;
-  display: block; /* جعل العنوان الفرعي بسطر مستقل لترتيب أجمل في المنتصف */
-  margin-bottom: 5px;
-}
-
-/* التجاوب مع شاشات الجوال */
 @media (max-width: 768px) {
   #tech-stack {
     padding: 40px 15px;
@@ -880,86 +833,26 @@ body {
     font-size: 14px;
   }
 }
-/* =========================================
-   تعديلات وتحسينات العرض والتجاوب للجوال
-   ========================================= */
 
-/* إصلاح مشكلة محاذاة النصوص في قسم من هي ريم للجوال */
-@media (max-width: 768px) {
-  .about-text {
-    text-align: right !important;
+@media (max-width: 600px) {
+  .main-header {
+    padding: 15px 20px;
   }
 
-  .about-text p {
-    text-align: right !important;
-    direction: rtl;
+  .nav-links {
+    margin: 0;
+    width: auto;
   }
 
-  .check-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-right;
-    text-align: right !important;
-    direction: rtl;
-    padding: 0;
-    margin: 20px 0;
+  .logo {
+    font-size: 24px;
   }
 
-  .check-list li {
-    display: flex;
-    flex-direction: row-reverse; /* الأيقونة يمين والنص يسارها بشكل صحيح */
-    justify-content: flex-end;
-    align-items: center;
-    gap: 12px;
-    text-align: right !important;
-    direction: rtl;
-    margin-bottom: 15px;
-    font-size: 16px;
+  .footer-links {
+    gap: 20px;
   }
 
-  .btn-link {
-    justify-content: center;
-    width: 100%;
-  }
-}
-/* إصلاح نهائي لمشاعات واتجاهات قسم من هي ريم في الجوال */
-@media (max-width: 768px) {
-  .about-text {
-    text-align: right !important;
-    direction: rtl !important;
-  }
-
-  .about-text p {
-    text-align: right !important;
-    direction: rtl !important;
-  }
-
-  .check-list {
-    list-style: none !important;
-    padding: 0 !important;
-    margin: 20px 0 !important;
-    text-align: right !important;
-    direction: rtl !important;
-  }
-
-  .check-list li {
-    display: flex !important;
-    flex-direction: row !important; /* الأيقونة يمين والنص يسارها بشكل صحيح تماماً */
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 12px !important;
-    text-align: right !important;
-    direction: rtl !important;
-    margin-bottom: 15px !important;
-    font-size: 16px !important;
-  }
-
-  .check-list li i {
-    order: 1 !important;
-  }
-
-  .check-list li span,
-  .check-list li {
-    order: 2 !important;
+  .footer-logo {
+    font-size: 24px;
   }
 }

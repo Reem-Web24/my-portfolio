@@ -1,30 +1,12 @@
 // 1. بيانات المشاريع وتوجيه المشاريع الخاصة لصفحة تفاصيل
 const projects = [
   {
-    title: "منصة شعاع الأمل",
-    desc: "منصة ويب متكاملة (Full-Stack) لدعم الصحة النفسية، تشمل مذكرات يومية، مقاطع صوتية ومرئية، ونظام تسجيل دخول وقواعد بيانات لإدارة الحسابات والأخصائيين.",
-    tools: "JS, PHP, SQL",
-    year: "مشروع التخرج (Full-Stack)",
-    status: "2025",
-    link: "https://roh.site.je",
-    isPrivate: false,
-  },
-  {
     title: "متجر - سيما",
     desc: "تصميم وتطوير متجر إلكتروني عصري ومتكامل يركز على تجربة المستخدم وسهولة التصفح. يتضمن المتجر نظاماً آمناً لتسجيل الدخول وإنشاء الحسابات للعملاء،",
     tools: "JS, React / Next.js",
     year: "متجر الكتروني",
     status: "2026",
     link: "https://melodious-axolotl-b07106.netlify.app/",
-    isPrivate: false,
-  },
-  {
-    title: "صالون - الريم بيوتي",
-    desc: "واجهة أمامية احترافية لتطبيق أو موقع صالون تجميل، مصممة بعناية فائقة لتعكس الهوية الأنيقة للصالون. يتضمن المشروع نظاماً متطوراً لعرض الخدمات والأسعار",
-    tools: "HTML, CSS, JS",
-    year: "موقع الكتروني",
-    status: "2025",
-    link: "https://reem-web24.github.io/my-salon-project/",
     isPrivate: false,
   },
   {
@@ -39,13 +21,33 @@ const projects = [
       "تنبيه: هذا المشروع خاص لعميل، لذا لا يمكن وضع رابط المعاينة المباشر، ولكن يمكنك الاطلاع على شرح النظام والصور في الداخل.",
   },
   {
+    title: "منصة شعاع الأمل",
+    desc: "منصة ويب متكاملة (Full-Stack) لدعم الصحة النفسية، تشمل مذكرات يومية، مقاطع صوتية ومرئية، ونظام تسجيل دخول وقواعد بيانات لإدارة الحسابات والأخصائيين.",
+    tools: "JS, PHP, SQL",
+    year: "مشروع التخرج (Full-Stack)",
+    status: "2025",
+    link: "https://roh.site.je",
+    isPrivate: false,
+  },
+
+  {
+    title: "صالون - الريم بيوتي",
+    desc: "واجهة أمامية احترافية لتطبيق أو موقع صالون تجميل، مصممة بعناية فائقة لتعكس الهوية الأنيقة للصالون. يتضمن المشروع نظاماً متطوراً لعرض الخدمات والأسعار",
+    tools: "HTML, CSS, JS",
+    year: "موقع الكتروني",
+    status: "2025",
+    link: "https://reem-web24.github.io/my-salon-project/",
+    isPrivate: false,
+  },
+
+  {
     title: "نظام إدارة الفعاليات والباركود (التدريبي)",
-    desc: "تطبيق عملي متكامل لتسجيل وتنظيم حضور الضيوف بتقنية الباركود.",
+    desc: "نظام الكتروني متكامل تم تطويره اثناء تدريبي لدى جمعيه المعالي ويهدف الى عمليه تسجيل الحضور للفعاليات عبر مسح الباركود ",
     tools: "JavaScript, Database, CSS",
     year: "مشروع تدريبي / تطبيقي",
     status: "2025",
     isPrivate: true,
-    link: "project-details.html?project=barcode-training",
+    link: "",
     alertText:
       "تنبيه: مشروع تطبيقي خاص بفترة التدريب، يوضح كفاءة بناء أنظمة الباركود وإدارة البيانات مع شرح تفصيلي.",
   },
@@ -54,7 +56,7 @@ const projects = [
 // 2. دالة عرض المشاريع مع زر يفتح صفحة التفاصيل
 function displayProjects() {
   const container = document.getElementById("my-profileid");
-  container.innerHTML = `<h2 class="section-title" style="width:100%">أهم أعمالي</h2>`;
+  container.innerHTML = `<h2 class="section-title">أهم أعمالي</h2>`;
 
   projects.forEach((project, index) => {
     const card = document.createElement("div");
@@ -64,20 +66,17 @@ function displayProjects() {
     let actionHTML = "";
     if (project.isPrivate) {
       actionHTML = `
-        <div style="margin-top: 15px;">
-          <p style="color: #e53e3e; font-size: 11px; font-weight: bold; margin-bottom: 8px; line-height: 1.4; background: #fff5f5; padding: 6px; border-radius: 4px; border: 1px dashed #e53e3e;">
-            <i class="fas fa-exclamation-circle"></i> مشروع خاص (محمي الخصوصية)
-          </p>
-          <a href="${project.link}" style="display: inline-block; background: var(--primary-color); color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-family: 'El Messiri', sans-serif; transition: 0.3s;">
-            عرض شرح النظام والصور <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
+        <div class="card-action">
+          <a href="${project.link}" class="details-btn">
+            عرض شرح النظام والصور <i class="fas fa-arrow-left"></i>
           </a>
         </div>
       `;
     } else {
       actionHTML = `
-        <div style="margin-top: 15px; display: flex; justify-content: flex-end;">
-          <a href="${project.link}" class="project-arrow" target="_blank" style="position: relative; opacity: 1; transform: none; left: 0; bottom: 0;">
-              <i class="fas fa-arrow-left"></i>
+        <div class="card-action">
+          <a href="${project.link}" class="project-arrow" target="_blank">
+            <i class="fas fa-arrow-left"></i>
           </a>
         </div>
       `;
@@ -95,6 +94,12 @@ function displayProjects() {
             ${actionHTML}
         </div>
     `;
+    // الضغط على البوكس يظهر/يخفي السهم أو الزر
+    card.addEventListener("click", (e) => {
+      if (e.target.closest("a")) return;
+      card.classList.toggle("active");
+    });
+
     container.appendChild(card);
   });
 }
